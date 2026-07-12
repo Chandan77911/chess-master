@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Grandmaster</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#171d1b">
+<!-- iOS home-screen support (Safari ignores manifest.json for these) -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Grandmaster">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">♞</span>
+        <div class="brand-text">
+          <h1>Project Grandmaster</h1>
+          <p class="tagline">An active coach, not just a board.</p>
+        </div>
+      </div>
+      <div id="ratingBadge" class="rating-badge">Local practice rating: 1200</div>
+    </header>
+
+    <nav id="modeTabs" class="mode-tabs" aria-label="Game modes"></nav>
+
+    <main class="layout">
+      <section class="board-panel">
+        <div class="board-frame">
+          <div id="board" class="board"></div>
+        </div>
+        <div class="board-controls">
+          <button id="flipBtn" class="btn btn--ghost">Flip board</button>
+          <button id="heatmapToggle" class="btn btn--ghost">Control heatmap</button>
+        </div>
+        <p id="statusLine" class="status-line" aria-live="polite"></p>
+      </section>
+
+      <aside class="side-panel">
+        <div id="modeSetup" class="panel-card"></div>
+        <div id="modeStatus" class="panel-card" aria-live="polite"></div>
+        <div id="hintLedger" class="panel-card ledger"></div>
+        <div id="moveHistory" class="panel-card"></div>
+      </aside>
+    </main>
+
+    <footer class="app-footer">
+      <p>Built from the Project Grandmaster GDD — see README.md for what's implemented client-side versus what would require live server infrastructure.</p>
+    </footer>
+  </div>
+
+  <div id="blunderModal" class="modal hidden" role="alertdialog" aria-modal="true" aria-labelledby="blunderTitle">
+    <div class="modal-card">
+      <h2 id="blunderTitle">Wait.</h2>
+      <p id="blunderText"></p>
+      <div class="modal-actions">
+        <button id="blunderTakeBack" class="btn btn--primary">Take it back</button>
+        <button id="blunderPlayAnyway" class="btn btn--ghost">Play it anyway</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/engine.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/modes.js"></script>
+  <script src="js/board.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
